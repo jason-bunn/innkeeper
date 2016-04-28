@@ -1,0 +1,11 @@
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\assemblies\InnKeeper.Android.dll
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\assemblies\Mono.Android.dll
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\assemblies\MonoGame.Framework.dll
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\assemblies\mscorlib.dll
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\assemblies\OpenTK-1.0.dll
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\assemblies\System.Core.dll
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\assemblies\System.dll
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\assemblies\System.Xml.dll
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\assemblies\System.Xml.Linq.dll
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\assemblies\System.Runtime.Serialization.dll
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\assemblies\System.ServiceModel.Internals.dll

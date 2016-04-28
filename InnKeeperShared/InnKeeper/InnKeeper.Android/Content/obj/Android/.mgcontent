@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Profile>Reach</Profile>
+  <Platform>Android</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Images/Hd/Background.png</File>
+    <File>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Images/Hd/Wizardry.png</File>
+    <File>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Images/Ld/Wizardry.png</File>
+    <File>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Fonts/Harrington.spritefont</File>
+    <File>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Images/Ld/Icons.png</File>
+    <File>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Images/Ld/Tileset.png</File>
+    <File>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Images/Ld/Background3.png</File>
+    <File>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Images/Ld/Icons48.png</File>
+    <File>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Fonts/HarringtonTitle.spritefont</File>
+    <File>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Images/Ld/blackbox.png</File>
+    <File>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Fonts/HarringtonUI.spritefont</File>
+  </SourceFiles>
+</SourceFileCollection>

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>49098f66-abb6-44a7-b607-f66706080e28</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>InnKeeper.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)BuildPlayState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EntityFactory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GameController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GamePlayState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GameState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GameStateStack.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GameVariables.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GreatHallRoom.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ImageEntity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inn.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)InspectPlayState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MainGame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MainMenuState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayStateUI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Room.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SplashScreenState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TextEntity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TextureManager.cs" />
+  </ItemGroup>
+</Project>

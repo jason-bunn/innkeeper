@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/Fonts/Harrington.spritefont</SourceFile>
+  <SourceTime>2016-04-19T22:58:03.8039337-04:00</SourceTime>
+  <DestFile>C:/Users/jason.bunn/Desktop/InnKeeper/InnKeeperShared/InnKeeper/InnKeeper.Android/Content/bin/Android/Fonts/Harrington.xnb</DestFile>
+  <DestTime>2016-04-19T22:58:08.4945576-04:00</DestTime>
+  <Importer>FontDescriptionImporter</Importer>
+  <ImporterTime>2016-03-30T02:36:08-04:00</ImporterTime>
+  <Processor>FontDescriptionProcessor</Processor>
+  <ProcessorTime>2016-03-30T02:36:08-04:00</ProcessorTime>
+  <Parameters>
+    <Key>TextureFormat</Key>
+    <Value>Compressed</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>
