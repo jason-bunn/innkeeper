@@ -10,12 +10,13 @@ namespace InnKeeper.Shared
     {
         bool isLoaded = false;
         Entity currentEntity;
-
+        BuildGrid grid;
         List<Entity> buildEntities;
 
         public BuildPlayState(GameState parent) : base(parent)
         {
             StateID = State.BUILD;
+            
         }
 
         public override void EnterState()
@@ -31,6 +32,8 @@ namespace InnKeeper.Shared
                 temp = Parent.Controller.EntFactory.CreateIcon(GameVariables.IconTypes.MUG, FareBuildSelect);
                 buildEntities.Add(temp);
                 Parent.AddEntity(temp);
+
+                grid = new BuildGrid(GameVariables.GRID_SIZE, Parent.Controller.ScreenWidth, Parent.Controller.ScreenHeight);
 
                 isLoaded = true;
                 
@@ -87,9 +90,14 @@ namespace InnKeeper.Shared
                         // if touch moved
                         if(touches[0].State == TouchLocationState.Moved)
                         {
-                            currentEntity.SetPosition(new Vector2(
-                            touches[0].Position.X - currentEntity.BoundingBox.Width / 2,
-                            touches[0].Position.Y - currentEntity.BoundingBox.Height / 2));
+
+                            //currentEntity.SetPosition(new Vector2(
+                            //touches[0].Position.X - currentEntity.BoundingBox.Width / 2,
+                            //touches[0].Position.Y - currentEntity.BoundingBox.Height / 2));
+
+                            currentEntity.SetPosition(grid.SnapToNearestNode(new Vector2(
+                                touches[0].Position.X - currentEntity.BoundingBox.Width / 2,
+                                touches[0].Position.Y - currentEntity.BoundingBox.Height / 2)));
                         }
                         // if touch released
                         if (touches[0].State == TouchLocationState.Released)
@@ -137,7 +145,7 @@ namespace InnKeeper.Shared
         void FareBuildSelect()
         {
             currentEntity = Parent.Controller.EntFactory.CreateRoom(GameVariables.RoomTypes.GREATHALL);
-            currentEntity.SetPosition(new Vector2(50, 50));
+            currentEntity.SetPosition(new Vector2(64, 64));
 
             Parent.AddEntity(currentEntity);
         }

@@ -13,7 +13,8 @@ namespace InnKeeper.Shared
         Dictionary<string, GamePlayState> gamePlayStates;
         GamePlayState currentState;
         PlayStateUI playStateUI;
-       
+        
+
         Texture2D texture1px;
 
         ImageEntity hammerIcon;
@@ -33,6 +34,7 @@ namespace InnKeeper.Shared
             Controller = gameController;
             DrawGrid = false;
             
+
         }
 
         public override void EnterState()

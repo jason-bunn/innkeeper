@@ -9,6 +9,8 @@ namespace InnKeeper.Shared
 
         public const int GROUNDHEIGHT = 564;
 
+        public const int GRID_SIZE = 64;
+
         public enum RoomTypes
         {
             GREATHALL,
