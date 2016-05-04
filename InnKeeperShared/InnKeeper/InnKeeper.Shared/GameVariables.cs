@@ -27,7 +27,7 @@ namespace InnKeeper.Shared
             CANCEL
         }
 
-        public static int UpdateInnTimeInSeconds = 10;
+        public static int UpdateInnTimeInSeconds = 60;
 
         public static int GetID()
         {

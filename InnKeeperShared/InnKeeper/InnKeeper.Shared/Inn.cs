@@ -56,5 +56,10 @@ namespace InnKeeper.Shared
             netGold = CalculateIncome() - CalculateExpenses();
             TotalGold += netGold;
         }
+
+        public int GetNetGold()
+        {
+            return netGold;
+        }
     }
 }
