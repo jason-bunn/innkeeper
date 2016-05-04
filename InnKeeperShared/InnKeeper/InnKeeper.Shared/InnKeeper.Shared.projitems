@@ -12,6 +12,7 @@
     <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Icon.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)BuildPlayState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EntityFactory.cs" />

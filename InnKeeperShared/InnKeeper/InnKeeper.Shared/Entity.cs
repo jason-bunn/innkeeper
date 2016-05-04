@@ -10,11 +10,19 @@ namespace InnKeeper.Shared
         public Color Tint { get; private set; }
         public Rectangle BoundingBox { get; private set; }
         public Rectangle SourceRect { get; set; }
+
+        public bool IsVisible { get; set; }
+        public delegate void CallBack();
+
+        public CallBack Action { get; private set; }
+
         public Entity()
         {
             this.Position = Vector2.Zero;
             this.SpriteTexture = null;
             this.Tint = Color.White;
+
+            Action = null;
         }
 
         public Entity(Texture2D tex, Vector2 pos, Color tint)
@@ -42,6 +50,7 @@ namespace InnKeeper.Shared
         public void SetPosition(Vector2 newPos)
         {
             this.Position = newPos;
+            this.SetBoundingBox(new Rectangle((int)newPos.X, (int)newPos.Y, this.BoundingBox.Width, this.BoundingBox.Height));
         }
 
         public void SetTexture(Texture2D tex)
@@ -53,5 +62,11 @@ namespace InnKeeper.Shared
         {
             this.BoundingBox = newRect;
         }
+
+        public void SetCallBack(CallBack callBack)
+        {
+            this.Action = callBack;
+        }
+        
     }
 }

@@ -7,6 +7,8 @@ namespace InnKeeper.Shared
 
         static int RoomIDs = 0;
 
+        public const int GROUNDHEIGHT = 564;
+
         public enum RoomTypes
         {
             GREATHALL,
@@ -25,7 +27,7 @@ namespace InnKeeper.Shared
             CANCEL
         }
 
-        public static int UpdateInnTimeInSeconds = 60;
+        public static int UpdateInnTimeInSeconds = 10;
 
         public static int GetID()
         {
@@ -35,5 +37,7 @@ namespace InnKeeper.Shared
 
             return id;
         }
+
+        
     }
 }

@@ -18,13 +18,15 @@ namespace InnKeeper.Shared
 
         ImageEntity hammerIcon;
 
+        float innUpdateTimeRemaining;
+
         public bool DrawGrid { get; set; }
 
         int numCols = 10;
         int numRows = 10;
         int gridSize = 64;
 
-        TouchCollection touchCollection;
+        
 
         public PlayState(GameController gameController) : base(gameController)
         {
@@ -37,7 +39,7 @@ namespace InnKeeper.Shared
         {
             // Initialize Inn container
             currentInn = new Inn("Prancing Pony");
-            
+            Controller.SetCurrentInn(currentInn);
 
             // Initialize gameplay states
             gamePlayStates = new Dictionary<string, GamePlayState>();
@@ -60,10 +62,13 @@ namespace InnKeeper.Shared
             texture1px = new Texture2D(Controller.GDevice.GraphicsDevice, 1, 1);
             texture1px.SetData(new Color[] { Color.White });
 
-            hammerIcon = Controller.EntFactory.CreateIcon(GameVariables.IconTypes.BUILD);
+            hammerIcon = Controller.EntFactory.CreateIcon(GameVariables.IconTypes.BUILD, EnterBuildState);
+            
 
             entities.Add(hammerIcon);
-           
+
+            innUpdateTimeRemaining = GameVariables.UpdateInnTimeInSeconds;
+
             Ready = true;
             base.EnterState();
         }
@@ -104,29 +109,65 @@ namespace InnKeeper.Shared
 
         public override void Update(GameTime gameTime)
         {
-            touchCollection = TouchPanel.GetState();
 
-            if(touchCollection.Count > 0)
+            // store current touch state
+            Touches = TouchPanel.GetState();
+            
+            if(Touches.Count > 0 && Ready)
             {
-                if(hammerIcon.BoundingBox.Contains(touchCollection[0].Position))
-                {
-                    if(currentState.StateID == GamePlayState.State.INSPECT)
+                // Loop through entities and check whether or not they have been touched
+                    for(int i = entities.Count -1; i >= 0; i--)
                     {
-                        currentState = gamePlayStates["Build"];
-                        currentState.EnterState();
+                        if (Touches[0].State == TouchLocationState.Released)
+                        {
+                            if (entities[i].BoundingBox.Contains(Touches[0].Position))
+                            {
+                                // if the entity is visible and a callback exists, execute it
+                                if (entities[i].IsVisible && entities[i].Action != null)
+                                {
+                                    entities[i].Action();
+                                }
+                            }
+                        }
                     }
-                    else
-                    {
-                        //currentState = gamePlayStates["Inspect"];
-                    }
-                    entities.Add(Controller.EntFactory.CreateRoom(GameVariables.RoomTypes.GREATHALL));
-                    
-                }
+            }// end Touches.Count > 0 && Ready
+
+            innUpdateTimeRemaining -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (innUpdateTimeRemaining <= 0)
+            {
+                UpdateInn();
             }
 
-
+            playStateUI.Update(gameTime);
             currentState.Update(gameTime);
             base.Update(gameTime);
+        }
+
+        void EnterBuildState()
+        {
+            if(currentState != gamePlayStates["Build"])
+            {
+                currentState = gamePlayStates["Build"];
+                currentState.EnterState();
+            }
+            else
+            {
+                currentState.ExitState();
+                currentState = gamePlayStates["Inspect"];
+                currentState.EnterState();
+            }
+            
+        }
+
+        void EnterInspectState()
+        {
+
+        }
+
+        void UpdateInn()
+        {
+            innUpdateTimeRemaining = GameVariables.UpdateInnTimeInSeconds;
+            currentInn.ProcessUpdate();
         }
     }
 }

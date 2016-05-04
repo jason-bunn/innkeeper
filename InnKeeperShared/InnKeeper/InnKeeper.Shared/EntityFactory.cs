@@ -30,26 +30,29 @@ namespace InnKeeper.Shared
             return temp;
         }
 
-        public ImageEntity CreateIcon(GameVariables.IconTypes type)
+        public ImageEntity CreateIcon(GameVariables.IconTypes type, Entity.CallBack callBack)
         {
-            ImageEntity temp = null;
+            UIcon temp = null;
 
             switch(type)
             {
                 case GameVariables.IconTypes.BUILD:
-                    temp = new ImageEntity(texMan.GetTexture("Icons"), new Vector2(1100, 600), Color.White);
+                    temp = new UIcon(texMan.GetTexture("Icons"), new Vector2(1100, 600), Color.White, callBack);
                     temp.SetSourceRect(0, 0, 48, 48);
-                    temp.SetBoundingBox(new Rectangle(1100, 600, 48, 48));
+                    temp.SetBoundingBox(new Rectangle((int)temp.Position.X, (int)temp.Position.Y, 48, 48));
+                    
                     break;
                 case GameVariables.IconTypes.BED:
-                    temp = new ImageEntity(texMan.GetTexture("Icons"), new Vector2(1000, 600), Color.White);
+                    temp = new UIcon(texMan.GetTexture("Icons"), new Vector2(1000, 600), Color.White, callBack);
                     temp.SetSourceRect(49, 0, 48, 48);
                     temp.SetBoundingBox(new Rectangle(1000, 600, 48, 48));
+                    
                     break;
                 case GameVariables.IconTypes.MUG:
-                    temp = new ImageEntity(texMan.GetTexture("Icons"), new Vector2(1100, 500), Color.White);
+                    temp = new UIcon(texMan.GetTexture("Icons"), new Vector2(1100, 500), Color.White, callBack);
                     temp.SetSourceRect(97, 0, 48, 48);
                     temp.SetBoundingBox(new Rectangle(1000, 600, 48, 48));
+                    
                     break;
             }
 

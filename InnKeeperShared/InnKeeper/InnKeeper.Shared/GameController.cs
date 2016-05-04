@@ -13,6 +13,7 @@ namespace InnKeeper.Shared
         public TextureManager TexManager { get; private set; }
         public GameStateStack StateStack { get; private set; }
         public EntityFactory EntFactory { get; private set; }
+        public Inn CurrentInn { get; private set; }
 
         public int ScreenWidth { get; private set; }
         public int ScreenHeight { get; private set; }
@@ -70,6 +71,11 @@ namespace InnKeeper.Shared
         public void SetEntityFactory(EntityFactory factory)
         {
             this.EntFactory = factory;
+        }
+
+        public void SetCurrentInn(Inn inn)
+        {
+            CurrentInn = inn;
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-
-
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace InnKeeper.Shared
 {
@@ -10,6 +9,11 @@ namespace InnKeeper.Shared
         public GameController Controller { get; set; }
         protected List<Entity> entities;
         protected List<TextEntity> textEntities;
+
+        public TouchCollection Touches
+        {
+            get; set;
+        }
 
         protected bool Ready { get; set; }
 
@@ -38,8 +42,11 @@ namespace InnKeeper.Shared
             {
                 foreach (Entity entity in entities)
                 {
+                    if(entity.IsVisible)
+                    {
+                        Controller.SBatch.Draw(entity.SpriteTexture, entity.Position, entity.SourceRect, entity.Tint);
+                    }
                     
-                    Controller.SBatch.Draw(entity.SpriteTexture, entity.Position, entity.SourceRect, entity.Tint);
 
                 }
             }

@@ -26,7 +26,7 @@ namespace InnKeeper.Shared
         public void InitializeUIText()
         {
             TextEntity temp = new TextEntity(currentInn.Name);
-            TextEntity currentGold = new TextEntity("Gold: ");
+            TextEntity currentGold = new TextEntity("Gold: " + currentInn.TotalGold);
 
             temp.SetColor(Color.White);
             currentGold.SetColor(Color.White);
@@ -43,7 +43,7 @@ namespace InnKeeper.Shared
 
         public void Update(GameTime gameTime)
         {
-
+            uiText[1].Text = "Gold: " + currentInn.TotalGold;
         }
 
         public void Draw(GameTime gameTime)

@@ -19,6 +19,8 @@ namespace InnKeeper.Shared
             this.Cost = 500;
             this.ExpenseRate = 10;
             this.ID = GameVariables.GetID();
+
+            this.IsVisible = true;
         }
     }
 }
