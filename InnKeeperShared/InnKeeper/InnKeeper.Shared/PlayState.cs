@@ -23,8 +23,8 @@ namespace InnKeeper.Shared
 
         public bool DrawGrid { get; set; }
 
-        int numCols = 10;
-        int numRows = 10;
+        int numCols = 64;
+        int numRows = 64;
         int gridSize = 64;
 
         
@@ -92,14 +92,18 @@ namespace InnKeeper.Shared
             {
                 for (float x = -numCols; x < numCols; x++)
                 {
+                    //Rectangle rectangle = new Rectangle(
+                    //    (int)(Controller.GetScreenCenter().X + x * gridSize), 0, 1,
+                    //    Controller.ScreenHeight);
+                    //Controller.SBatch.Draw(texture1px, rectangle, Color.Red);
                     Rectangle rectangle = new Rectangle(
-                        (int)(Controller.GetScreenCenter().X + x * gridSize), 0, 1,
+                        (int)x * gridSize, 0, 1,
                         Controller.ScreenHeight);
                     Controller.SBatch.Draw(texture1px, rectangle, Color.Red);
                 }
                 for (float y = -numRows; y < numRows; y++)
                 {
-                    Rectangle rectangle = new Rectangle(0, (int)(Controller.GetScreenCenter().Y + y * gridSize),
+                    Rectangle rectangle = new Rectangle(0, (int)y * gridSize,
                         Controller.ScreenWidth, 1);
                     Controller.SBatch.Draw(texture1px, rectangle, Color.Red);
                 }
