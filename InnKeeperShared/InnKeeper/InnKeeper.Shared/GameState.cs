@@ -81,6 +81,62 @@ namespace InnKeeper.Shared
             entities.Add(ent);
         }
 
+        public void RemoveEntity(Entity ent)
+        {
+            entities.Remove(ent);
+        }
+
+        public bool CheckOverlap(Entity ent)
+        {
+            bool overlap = false;
+
+            foreach (Entity other in entities)
+            {
+                // don't check against itself
+                if(ent != other)
+                {
+                    if (ent.BoundingBox.Intersects(other.BoundingBox))
+                    {
+                        if (ent.Layer == other.Layer)
+                            overlap = true;
+                        break;
+                    }
+                }
+                
+            }
+
+            return overlap;
+        }
+
+        public bool CheckIfRoomBelow(Entity ent)
+        {
+            bool support = false;
+
+            foreach (Entity other in entities)
+            {
+                if(ent != other)
+                {
+                    // check left side
+                    //var left = new Vector2(ent.Position.X, ent.Position.Y + ent.BoundingBox.Height + 1);
+                    //if(other.BoundingBox.Contains(left.X, left.Y))
+                    //{
+                    //    support = true;
+                    //    break;
+                    //}
+                    // check middle
+                    var middle = new Vector2(ent.Position.X + (ent.BoundingBox.Width / 2), ent.Position.Y + ent.BoundingBox.Height + 1);
+                    if(other.BoundingBox.Contains(middle.X, middle.Y))
+                    {
+                        support = true;
+                        break;
+                    }
+                    // check right
+                }
+            }
+
+            return support;
+        }
+
     }
 
 }

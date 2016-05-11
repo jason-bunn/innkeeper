@@ -14,12 +14,13 @@ namespace InnKeeper.Shared
             this.SetPosition(pos);
             this.SetColor(tint);
 
-            this.SetSourceRect(9, 9, 512, 128);
+            this.SetSourceRect(8, 8, 512, 128);
             this.SetBoundingBox(new Rectangle((int)pos.X, (int)pos.Y, 512, 128));
             this.Cost = 500;
             this.ExpenseRate = 10;
             this.ID = GameVariables.GetID();
 
+            this.Layer = 1;
             this.IsVisible = true;
         }
     }

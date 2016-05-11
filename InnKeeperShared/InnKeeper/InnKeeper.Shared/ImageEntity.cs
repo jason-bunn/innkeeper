@@ -14,6 +14,7 @@ namespace InnKeeper.Shared
         public ImageEntity(Texture2D tex, Vector2 pos, Color tint) : base(tex, pos, tint)
         {
             this.SetSourceRect(0, 0, tex.Width, tex.Height);
+            this.Layer = 0;
             this.IsVisible = true;
         }
 

@@ -22,6 +22,9 @@ namespace InnKeeper.Shared
                     temp = new GreatHallRoom(texMan.GetTexture("Rooms"), new Vector2(200, 600), Color.White);
                     break;
 
+                case GameVariables.RoomTypes.LOWBED:
+                    temp = new LowQualityLodgingRoom(texMan.GetTexture("Rooms"), new Vector2(200, 600), Color.White);
+                    break;
                 default:
                     temp = null;
                     break;
@@ -51,7 +54,7 @@ namespace InnKeeper.Shared
                 case GameVariables.IconTypes.MUG:
                     temp = new UIcon(texMan.GetTexture("Icons"), new Vector2(1100, 500), Color.White, callBack);
                     temp.SetSourceRect(97, 0, 48, 48);
-                    temp.SetBoundingBox(new Rectangle(1000, 600, 48, 48));
+                    temp.SetBoundingBox(new Rectangle(1100, 500, 48, 48));
                     
                     break;
             }

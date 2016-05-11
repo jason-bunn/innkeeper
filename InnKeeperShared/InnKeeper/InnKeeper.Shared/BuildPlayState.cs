@@ -63,23 +63,32 @@ namespace InnKeeper.Shared
             TouchCollection touches = Parent.Touches;
 
             
-
+            // if an entity has been spawned
             if(currentEntity != null)
             {
-                if (currentEntity.Position.Y <= GameVariables.GROUNDHEIGHT)
+                // check if it overlaps
+                if (Parent.CheckOverlap(currentEntity))
+                {
+                    currentEntity.SetColor(Color.Red);
+                }
+                // if not, check its current y position
+                else if (currentEntity.Position.Y <= GameVariables.GROUNDHEIGHT && !Parent.CheckIfRoomBelow(currentEntity))
                 {
                     if (currentEntity.Tint != Color.Red)
                     {
                         currentEntity.SetColor(Color.Red);
                     }
                 }
-                else
+                else // if it is on the ground and not overlapping
                 {
+                    // TODO check if it is on top of another room
                     if (currentEntity.Tint != Color.Green || currentEntity.Tint != Color.White)
                     {
                         currentEntity.SetColor(Color.Green);
                     }
                 }
+
+                
 
                 if (touches.Count > 0)
                 {
@@ -104,12 +113,18 @@ namespace InnKeeper.Shared
                         {
                             if (currentEntity.Tint == Color.Green)
                             {
-                                currentEntity.SetColor(Color.White);
+                                var room = (Room)currentEntity;
+                                // check to see if you can afford it
+                                if (Parent.Controller.CurrentInn.TotalGold >= room.Cost)
+                                {
+                                    currentEntity.SetColor(Color.White);
 
-                                // add room to the inn 
-                                // TODO: subtract room build cost from total gold
-                                Parent.Controller.CurrentInn.AddRoom((Room)currentEntity);
-                                currentEntity = null;
+                                    // add room to the inn 
+                                    
+                                    Parent.Controller.CurrentInn.AddRoom((Room)currentEntity);
+                                    currentEntity = null;
+                                }
+                                
                             }
                         }
                     }
@@ -139,11 +154,25 @@ namespace InnKeeper.Shared
 
         void LodgingBuildSelect()
         {
+            if (currentEntity != null)
+            {
+                Parent.RemoveEntity(currentEntity);
+                currentEntity = null;
+            }
+            
+            currentEntity = Parent.Controller.EntFactory.CreateRoom(GameVariables.RoomTypes.LOWBED);
+            currentEntity.SetPosition(new Vector2(64, 64));
 
+            Parent.AddEntity(currentEntity);
         }
 
         void FareBuildSelect()
         {
+            if (currentEntity != null)
+            {
+                Parent.RemoveEntity(currentEntity);
+                currentEntity = null;
+            }
             currentEntity = Parent.Controller.EntFactory.CreateRoom(GameVariables.RoomTypes.GREATHALL);
             currentEntity.SetPosition(new Vector2(64, 64));
 

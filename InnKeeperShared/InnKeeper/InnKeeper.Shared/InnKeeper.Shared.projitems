@@ -26,6 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ImageEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Inn.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InspectPlayState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LowQualityLodgingRoom.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainGame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MainMenuState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PlayState.cs" />

@@ -10,6 +10,8 @@ namespace InnKeeper.Shared
         public Color Tint { get; private set; }
         public Rectangle BoundingBox { get; private set; }
         public Rectangle SourceRect { get; set; }
+        public uint Layer { get; set; }
+
 
         public bool IsVisible { get; set; }
         public delegate void CallBack();
@@ -21,6 +23,7 @@ namespace InnKeeper.Shared
             this.Position = Vector2.Zero;
             this.SpriteTexture = null;
             this.Tint = Color.White;
+            this.Layer = 0;
 
             Action = null;
         }
@@ -30,6 +33,9 @@ namespace InnKeeper.Shared
             this.Position = pos;
             this.SpriteTexture = tex;
             this.Tint = tint;
+            this.Layer = 0;
+
+            Action = null;
         }
 
         public virtual void Update(GameTime gameTime)
