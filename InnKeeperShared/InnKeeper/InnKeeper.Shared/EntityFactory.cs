@@ -25,6 +25,11 @@ namespace InnKeeper.Shared
                 case GameVariables.RoomTypes.LOWBED:
                     temp = new LowQualityLodgingRoom(texMan.GetTexture("Rooms"), new Vector2(200, 600), Color.White);
                     break;
+
+                case GameVariables.RoomTypes.KITCHEN:
+                    temp = new KitchenRoom(texMan.GetTexture("Rooms"), new Vector2(200, 600), Color.White);
+                    break;
+
                 default:
                     temp = null;
                     break;

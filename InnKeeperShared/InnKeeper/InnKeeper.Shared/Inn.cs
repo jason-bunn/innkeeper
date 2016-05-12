@@ -6,9 +6,15 @@ namespace InnKeeper.Shared
 {
     public class Inn
     {
+        Random rand;
+
         public string Name { get; set; }
         public int TotalGold { get; private set; }
+
         int netGold;
+        int numberOfCustomers = 0;
+        int chanceForCustomer = 0;
+
         List<Room> rooms;
 
         public Inn(string name)
@@ -17,6 +23,8 @@ namespace InnKeeper.Shared
             rooms = new List<Room>();
             TotalGold = 900;
             netGold = 0;
+
+            rand = new Random();
         }
 
         public void AddRoom(Room room)
@@ -48,6 +56,7 @@ namespace InnKeeper.Shared
             {
                 income += rooms[i].IncomeRate;
             }
+            income += numberOfCustomers * 5;
             return income;
         }
 
@@ -55,11 +64,52 @@ namespace InnKeeper.Shared
         {
             netGold = CalculateIncome() - CalculateExpenses();
             TotalGold += netGold;
+
+            // determine if a customer has arrived
+            if(rand.Next(0,101) <= chanceForCustomer)
+            {
+                numberOfCustomers++;
+            }
+
         }
 
         public int GetNetGold()
         {
             return netGold;
+        }
+
+        public void IncreaseCustomerChance(int percent)
+        {
+            chanceForCustomer += percent;
+
+            if(chanceForCustomer > 100)
+            {
+                chanceForCustomer = 100;
+            }
+            if(chanceForCustomer < 0)
+            {
+                chanceForCustomer = 0;
+            }
+        }
+
+        public void AddCustomer()
+        {
+            numberOfCustomers++;
+        }
+
+        public void RemoveCustomer()
+        {
+            numberOfCustomers--;
+
+            if (numberOfCustomers < 0)
+            {
+                numberOfCustomers = 0;
+            }
+        }
+
+        public int GetNumCustomers()
+        {
+            return numberOfCustomers;
         }
     }
 }

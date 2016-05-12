@@ -25,26 +25,30 @@ namespace InnKeeper.Shared
 
         public void InitializeUIText()
         {
-            TextEntity temp = new TextEntity(currentInn.Name);
+            TextEntity name = new TextEntity(currentInn.Name);
             TextEntity currentGold = new TextEntity("Gold: " + currentInn.TotalGold);
             TextEntity netGold = new TextEntity("0");
-            
+            TextEntity numCustomers = new TextEntity("0");
 
-            temp.SetColor(Color.White);
+            name.SetColor(Color.White);
             currentGold.SetColor(Color.White);
             netGold.SetColor(Color.White);
+            numCustomers.SetColor(Color.White);
 
-            temp.SetPosition(new Vector2(parent.Controller.GetScreenCenter().X, 2));
+            name.SetPosition(new Vector2(parent.Controller.GetScreenCenter().X, 2));
             currentGold.SetPosition(new Vector2(2, 2));
             netGold.SetPosition(new Vector2(parent.Controller.ScreenWidth / 4, 2));
+            numCustomers.SetPosition(new Vector2(parent.Controller.ScreenWidth - (parent.Controller.ScreenWidth / 8), 2));
 
-            temp.SetSpriteFont(uiFont);
+            name.SetSpriteFont(uiFont);
             currentGold.SetSpriteFont(uiFont);
             netGold.SetSpriteFont(uiFont);
+            numCustomers.SetSpriteFont(uiFont);
 
-            uiText.Add(temp);
+            uiText.Add(name);
             uiText.Add(currentGold);
             uiText.Add(netGold);
+            uiText.Add(numCustomers);
         }
 
         public void Update(GameTime gameTime)
@@ -66,7 +70,7 @@ namespace InnKeeper.Shared
 
             uiText[1].Text = "Gold: " + currentInn.TotalGold;
             uiText[2].Text = currentInn.GetNetGold().ToString();
-
+            uiText[3].Text = currentInn.GetNumCustomers().ToString();
             
         }
 

@@ -71,7 +71,7 @@ namespace InnKeeper.Shared
             controller.TexManager.AddTexture("BlackBox", Content.Load<Texture2D>("Images/Ld/blackbox"));
             controller.TexManager.AddTexture("Background", Content.Load<Texture2D>("Images/Ld/Background3"));
             controller.TexManager.AddTexture("Icons", Content.Load<Texture2D>("Images/Ld/Icons48"));
-            controller.TexManager.AddTexture("Rooms", Content.Load<Texture2D>("Images/Ld/Tileset"));
+            controller.TexManager.AddTexture("Rooms", Content.Load<Texture2D>("Images/Ld/Tileset2"));
 
             // Launch splash screen state
             stateStack.GetState("Splash").EnterState();

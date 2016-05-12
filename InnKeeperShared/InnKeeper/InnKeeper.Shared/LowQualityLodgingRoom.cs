@@ -11,7 +11,7 @@ namespace InnKeeper.Shared
             this.SetPosition(pos);
             this.SetColor(tint);
 
-            this.SetSourceRect(8, 144, 256, 128);
+            this.SetSourceRect(3, 134, 256, 128);
             this.SetBoundingBox(new Rectangle((int)pos.X, (int)pos.Y, 256, 128));
             this.Cost = 50;
             this.ExpenseRate = 5;

@@ -163,6 +163,9 @@ namespace InnKeeper.Shared
             currentEntity = Parent.Controller.EntFactory.CreateRoom(GameVariables.RoomTypes.LOWBED);
             currentEntity.SetPosition(new Vector2(64, 64));
 
+            // This should really only be called after the room is set
+            Parent.Controller.CurrentInn.IncreaseCustomerChance(10);
+
             Parent.AddEntity(currentEntity);
         }
 
@@ -175,6 +178,9 @@ namespace InnKeeper.Shared
             }
             currentEntity = Parent.Controller.EntFactory.CreateRoom(GameVariables.RoomTypes.GREATHALL);
             currentEntity.SetPosition(new Vector2(64, 64));
+
+            // This should really only be called after the room is set
+            Parent.Controller.CurrentInn.IncreaseCustomerChance(40);
 
             Parent.AddEntity(currentEntity);
         }
