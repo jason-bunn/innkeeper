@@ -143,7 +143,7 @@ namespace InnKeeper.Shared
             {
                 UpdateInn();
             }
-
+            currentInn.CustomerUpdate(gameTime);
             playStateUI.Update(gameTime);
             currentState.Update(gameTime);
             base.Update(gameTime);

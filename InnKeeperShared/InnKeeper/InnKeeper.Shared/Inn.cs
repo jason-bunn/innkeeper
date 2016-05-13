@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -13,7 +14,9 @@ namespace InnKeeper.Shared
 
         int netGold;
         int numberOfCustomers = 0;
-        int chanceForCustomer = 0;
+        int chanceForCustomer = 1;
+        float customerTimer = 0;
+        float endInterval = 0;
 
         List<Room> rooms;
 
@@ -25,6 +28,7 @@ namespace InnKeeper.Shared
             netGold = 0;
 
             rand = new Random();
+            endInterval = NextCustomerTime(chanceForCustomer);
         }
 
         public void AddRoom(Room room)
@@ -60,16 +64,33 @@ namespace InnKeeper.Shared
             return income;
         }
 
+        public void CustomerUpdate(GameTime gameTime)
+        {
+            if(endInterval != 0)
+            {
+                customerTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (customerTimer >= endInterval)
+                {
+                    //spawn customers
+                    numberOfCustomers++;
+                    customerTimer = 0;
+                    endInterval = NextCustomerTime(chanceForCustomer);
+                }
+            }
+            
+        }
+
         public void ProcessUpdate()
         {
             netGold = CalculateIncome() - CalculateExpenses();
             TotalGold += netGold;
 
             // determine if a customer has arrived
-            if(rand.Next(0,101) <= chanceForCustomer)
-            {
-                numberOfCustomers++;
-            }
+            //if(rand.Next(0,101) <= chanceForCustomer)
+            //{
+            //    numberOfCustomers++;
+            //}
+            //endInterval = NextCustomerTime(chanceForCustomer);
 
         }
 
@@ -110,6 +131,12 @@ namespace InnKeeper.Shared
         public int GetNumCustomers()
         {
             return numberOfCustomers;
+        }
+
+        public float NextCustomerTime(int rateParameter)
+        {
+            float rate = rateParameter / 60.0f;
+            return (float)-Math.Log(1.0 - rand.NextDouble()) / rate;
         }
     }
 }
