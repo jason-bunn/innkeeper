@@ -11,6 +11,8 @@ namespace InnKeeper.Shared
 
         public const int GRID_SIZE = 64;
 
+        // Length of a day in seconds
+        public const float DAY_CYCLE_LENGTH = 900.0f;
         public enum RoomTypes
         {
             GREATHALL,

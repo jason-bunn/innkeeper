@@ -165,6 +165,7 @@ namespace InnKeeper.Shared
 
             // This should really only be called after the room is set
             Parent.Controller.CurrentInn.IncreaseCustomerChance(10);
+            Parent.Controller.CurrentInn.UpdateInterArrivalRate();
 
             Parent.AddEntity(currentEntity);
         }
@@ -181,6 +182,7 @@ namespace InnKeeper.Shared
 
             // This should really only be called after the room is set
             Parent.Controller.CurrentInn.IncreaseCustomerChance(40);
+            Parent.Controller.CurrentInn.UpdateInterArrivalRate();
 
             Parent.AddEntity(currentEntity);
         }

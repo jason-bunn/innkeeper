@@ -132,11 +132,20 @@ namespace InnKeeper.Shared
         {
             return numberOfCustomers;
         }
-
+        /// <summary>
+        /// Generate customer inter-arrival times using Poisson Process
+        /// </summary>
+        /// <param name="rateParameter"></param>
+        /// <returns></returns>
         public float NextCustomerTime(int rateParameter)
         {
-            float rate = rateParameter / 60.0f;
+            float rate = rateParameter / GameVariables.DAY_CYCLE_LENGTH; //divide by number of real seconds for rate
             return (float)-Math.Log(1.0 - rand.NextDouble()) / rate;
+        }
+
+        public void UpdateInterArrivalRate()
+        {
+            endInterval = NextCustomerTime(chanceForCustomer);
         }
     }
 }
