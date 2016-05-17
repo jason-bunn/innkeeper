@@ -13,6 +13,15 @@ namespace InnKeeper.Shared
 
         // Length of a day in seconds
         public const float DAY_CYCLE_LENGTH = 900.0f;
+
+        public const float CAMERA_MOVE_SPEED = 200.0f;
+        public const float CAMERA_ZOOM_SPEED = 0.5f;
+
+        public const int WORLD_WIDTH = 2536;
+        public const int WORLD_HEIGHT = 1536;
+        public const int VIEWPORT_WIDTH = 960;
+        public const int VIEWPORT_HEIGHT = 540;
+
         public enum RoomTypes
         {
             GREATHALL,

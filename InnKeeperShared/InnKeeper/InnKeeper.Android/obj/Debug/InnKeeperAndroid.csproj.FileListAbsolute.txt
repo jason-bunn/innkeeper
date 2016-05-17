@@ -32,5 +32,6 @@ C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Androi
 C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\R.cs.flag
 C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\uploadflags.txt
 C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\InnKeeperAndroid.csprojResolveAssemblyReference.cache
+C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\bin\Android\AnyCPU\Debug\MonoGame.Extended.dll
 C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\obj\Debug\InnKeeper.Android.dll.mdb
 C:\Users\jason.bunn\Desktop\InnKeeper\InnKeeperShared\InnKeeper\InnKeeper.Android\bin\Android\AnyCPU\Debug\InnKeeper.Android.dll.mdb

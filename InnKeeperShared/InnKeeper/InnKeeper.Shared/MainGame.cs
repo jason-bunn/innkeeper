@@ -1,6 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
+using MonoGame.Extended.ViewportAdapters;
 
 
 namespace InnKeeper.Shared
@@ -14,19 +16,14 @@ namespace InnKeeper.Shared
         SpriteBatch spriteBatch;
         static GameController controller = new GameController();
         GameStateStack stateStack = new GameStateStack(controller);
-        
+        Camera2D camera;
+
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            
-            graphics.IsFullScreen = true;
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 768;
-            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
 
-            controller.SetStateStack(stateStack);
-            controller.SetGraphicsDevice(graphics);
+            //Window.AllowUserResizing = true;
         }
 
         /// <summary>
@@ -38,6 +35,21 @@ namespace InnKeeper.Shared
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            var viewportAdapter = new BoxingViewportAdapter(Window, graphics.GraphicsDevice, GameVariables.VIEWPORT_WIDTH, GameVariables.VIEWPORT_HEIGHT);
+            camera = new Camera2D(viewportAdapter);
+
+            controller.SetCamera(camera);
+
+            graphics.IsFullScreen = true;
+            graphics.PreferredBackBufferWidth = GameVariables.VIEWPORT_WIDTH;
+            graphics.PreferredBackBufferHeight = GameVariables.VIEWPORT_HEIGHT;
+            graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
+
+            //Window.AllowUserResizing = true;
+
+            controller.SetStateStack(stateStack);
+            controller.SetGraphicsDevice(graphics);
 
             // Set references to content manager and screen dimension in GameController
             controller.SetContentManager(this.Content);
@@ -111,7 +123,9 @@ namespace InnKeeper.Shared
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            spriteBatch.Begin();
+
+            var cameraTransformMatrix = controller.Camera.GetViewMatrix(Vector2.Zero);
+            spriteBatch.Begin(transformMatrix: cameraTransformMatrix);
             // TODO: Add your drawing code here
 
             // Draw top state from stack

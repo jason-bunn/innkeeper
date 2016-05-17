@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using MonoGame.Extended;
 
 namespace InnKeeper.Shared
 {
@@ -14,6 +15,9 @@ namespace InnKeeper.Shared
         public GameStateStack StateStack { get; private set; }
         public EntityFactory EntFactory { get; private set; }
         public Inn CurrentInn { get; private set; }
+
+        public Camera2D Camera { get; private set; }
+        public Vector2 WorldPosition { get; set; }
 
         public int ScreenWidth { get; private set; }
         public int ScreenHeight { get; private set; }
@@ -76,6 +80,11 @@ namespace InnKeeper.Shared
         public void SetCurrentInn(Inn inn)
         {
             CurrentInn = inn;
+        }
+
+        public void SetCamera(Camera2D camera)
+        {
+            this.Camera = camera;
         }
     }
 }
