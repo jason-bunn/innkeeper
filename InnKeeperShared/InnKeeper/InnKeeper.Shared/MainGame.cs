@@ -53,7 +53,7 @@ namespace InnKeeper.Shared
 
             // Set references to content manager and screen dimension in GameController
             controller.SetContentManager(this.Content);
-            controller.SetScreenDimension(graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
+            controller.SetScreenDimension(GameVariables.VIEWPORT_WIDTH, GameVariables.VIEWPORT_HEIGHT);
             controller.SetTextureManager(new TextureManager());
             controller.SetEntityFactory(new EntityFactory(controller.TexManager));
 

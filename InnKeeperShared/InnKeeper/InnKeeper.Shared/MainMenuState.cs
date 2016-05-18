@@ -30,15 +30,16 @@ namespace InnKeeper.Shared
             // initialize title text
             title = new TextEntity("Inn Keeper");
             title.SetColor(Color.White);
-            title.SetPosition(new Vector2(Controller.GetScreenCenter().X - (title.Text.Length + 96), Controller.GetScreenCenter().Y - 200));
+            title.SetPosition(new Vector2(Controller.GetScreenCenter().X - (titleFont.MeasureString(title.Text).X/2), Controller.GetScreenCenter().Y - 200));
             
             title.SetSpriteFont(titleFont);
 
             // initialize new menu items
             menuItem1 = new TextEntity("New Game");
             menuItem1.SetColor(Color.White);
-            menuItem1.SetPosition(new Vector2(Controller.GetScreenCenter().X - (menuItem1.Text.Length + 32), Controller.GetScreenCenter().Y));
-            menuItem1.SetBoundingBox(new Rectangle((int)menuItem1.Position.X, (int)menuItem1.Position.Y, 100, 40));
+            
+            menuItem1.SetPosition(new Vector2(Controller.GetScreenCenter().X - (testFont.MeasureString(menuItem1.Text).X/2), Controller.GetScreenCenter().Y));
+            menuItem1.SetBoundingBox(new Rectangle((int)menuItem1.Position.X, (int)menuItem1.Position.Y, (int)testFont.MeasureString(menuItem1.Text).X, (int)testFont.MeasureString(menuItem1.Text).Y));
             menuItem1.SetSpriteFont(testFont);
 
             // Add menut items to text entities
@@ -57,9 +58,7 @@ namespace InnKeeper.Shared
 
         public override void Draw(GameTime gameTime)
         {
-            //Controller.SBatch.DrawString(testFont, "This is a test font", new Vector2(100, 100), Color.Black);
-
-            //Controller.SBatch.DrawString(menuItem1.SFont, menuItem1.Text, menuItem1.Position, menuItem1.Tint);
+            
             base.Draw(gameTime);
         }
 
@@ -69,7 +68,8 @@ namespace InnKeeper.Shared
 
             if(touchCollection.Count > 0)
             {
-                if (menuItem1.BoundingBox.Contains(touchCollection[0].Position))
+                var worldPos = Controller.Camera.ScreenToWorld(touchCollection[0].Position);
+                if (menuItem1.BoundingBox.Contains(worldPos))
                 {
                     Controller.StateStack.ChangeState("PlayState");
                 }
@@ -78,5 +78,8 @@ namespace InnKeeper.Shared
 
             base.Update(gameTime);
         }
+        
     }
+
+    
 }

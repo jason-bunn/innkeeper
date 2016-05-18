@@ -67,6 +67,7 @@ namespace InnKeeper.Shared
         public void SetBoundingBox(Rectangle newRect)
         {
             this.BoundingBox = newRect;
+            
         }
 
         public void SetCallBack(CallBack callBack)
