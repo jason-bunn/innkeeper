@@ -62,6 +62,21 @@ namespace InnKeeper.Shared
             base.Draw(gameTime);
         }
 
+        public override void DrawStrings(GameTime gameTime)
+        {
+            var cameraTransformMatrix = Controller.Camera.GetViewMatrix(Vector2.Zero);
+            Controller.SBatch.Begin(transformMatrix: cameraTransformMatrix);
+
+            if (textEntities.Count > 0 && Ready)
+            {
+                foreach (TextEntity entity in textEntities)
+                {
+                    Controller.SBatch.DrawString(entity.SFont, entity.Text, entity.Position, entity.Tint);
+                   
+                }
+            }
+            Controller.SBatch.End();
+        }
         public override void Update(GameTime gameTime)
         {
             TouchCollection touchCollection = TouchPanel.GetState();

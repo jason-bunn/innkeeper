@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace InnKeeper.Shared
 {
     public abstract class GameState
     {
         public GameController Controller { get; set; }
+        protected List<Entity> parallaxEntities;
         protected List<Entity> entities;
         protected List<TextEntity> textEntities;
 
@@ -22,6 +24,7 @@ namespace InnKeeper.Shared
             Controller = controller;
             entities = new List<Entity>();
             textEntities = new List<TextEntity>();
+            parallaxEntities = new List<Entity>();
             Ready = false;
         }
 
@@ -36,8 +39,31 @@ namespace InnKeeper.Shared
             }
         }
 
+        public virtual void DrawBackground(GameTime gameTime)
+        {
+            var parallaxFactor = Vector2.One * GameVariables.PARALLAX_AMOUNT;
+            var cameraTransformMatrix = Controller.Camera.GetViewMatrix(parallaxFactor);
+            Controller.SBatch.Begin(transformMatrix: cameraTransformMatrix);
+
+            if (parallaxEntities.Count > 0 && Ready)
+            {
+                foreach (Entity entity in parallaxEntities)
+                {
+                    if (entity.IsVisible)
+                    {
+                        Controller.SBatch.Draw(entity.SpriteTexture, entity.Position, entity.SourceRect, entity.Tint);
+                    }
+
+
+                }
+            }
+            Controller.SBatch.End();
+        }
         public virtual void Draw(GameTime gameTime)
         {
+            var cameraTransformMatrix = Controller.Camera.GetViewMatrix(Vector2.Zero);
+            Controller.SBatch.Begin(transformMatrix: cameraTransformMatrix);
+
             if (entities.Count > 0 && Ready)
             {
                 foreach (Entity entity in entities)
@@ -50,15 +76,18 @@ namespace InnKeeper.Shared
 
                 }
             }
+            Controller.SBatch.End();
         }
 
         public virtual void DrawStrings(GameTime gameTime)
         {
+            Controller.SBatch.Begin(blendState: BlendState.AlphaBlend);
             foreach (TextEntity entity in textEntities)
             {
                 Controller.SBatch.DrawString(entity.SFont, entity.Text, entity.Position, entity.Tint);
                 //entity.Draw(gameTime);
             }
+            Controller.SBatch.End();
         }
 
         public virtual void EnterState()

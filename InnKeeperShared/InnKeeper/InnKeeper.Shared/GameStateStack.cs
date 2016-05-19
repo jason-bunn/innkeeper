@@ -30,7 +30,9 @@ namespace InnKeeper.Shared
         {
             if (gameStateStack.Count > 0)
             {
+                gameStateStack.Peek().DrawBackground(gameTime);
                 gameStateStack.Peek().Draw(gameTime);
+                gameStateStack.Peek().DrawStrings(gameTime);
             }
         }
 

@@ -18,6 +18,7 @@ namespace InnKeeper.Shared
         Texture2D texture1px;
 
         ImageEntity hammerIcon;
+        List<Entity> uiEntities;
 
         float innUpdateTimeRemaining;
 
@@ -33,7 +34,7 @@ namespace InnKeeper.Shared
         {
             Controller = gameController;
             DrawGrid = false;
-            
+            uiEntities = new List<Entity>();
 
         }
 
@@ -55,8 +56,8 @@ namespace InnKeeper.Shared
             currentState = gamePlayStates["Inspect"];
 
             // Set Background and UI entities
-            
-            entities.Add(new ImageEntity(Controller.TexManager.GetTexture("Background"),
+            //Controller.Camera.Position = new Vector2(GameVariables.WORLD_WIDTH / 2, GameVariables.WORLD_HEIGHT / 2);
+            parallaxEntities.Add(new ImageEntity(Controller.TexManager.GetTexture("Background"),
                new Vector2((Controller.ScreenWidth - Controller.TexManager.GetTexture("Background").Width) / 2, 0),
                Color.White));
 
@@ -67,7 +68,7 @@ namespace InnKeeper.Shared
             hammerIcon = Controller.EntFactory.CreateIcon(GameVariables.IconTypes.BUILD, EnterBuildState);
             
 
-            entities.Add(hammerIcon);
+            uiEntities.Add(hammerIcon);
 
             innUpdateTimeRemaining = GameVariables.UpdateInnTimeInSeconds;
 
@@ -78,13 +79,31 @@ namespace InnKeeper.Shared
         public override void ExitState()
         {
             entities.Clear();
+            parallaxEntities.Clear();
+            textEntities.Clear();
             base.ExitState();
         }
 
         public override void Draw(GameTime gameTime)
         {
+
+            //base.Draw(gameTime);
+            var cameraTransformMatrix = Controller.Camera.GetViewMatrix(Vector2.Zero);
+            Controller.SBatch.Begin(transformMatrix: cameraTransformMatrix);
+
+            if (entities.Count > 0 && Ready)
+            {
+                foreach (Entity entity in entities)
+                {
+                    if (entity.IsVisible)
+                    {
+                        Controller.SBatch.Draw(entity.SpriteTexture, entity.Position, entity.SourceRect, entity.Tint);
+                    }
+
+
+                }
+            }
             
-            base.Draw(gameTime);
             currentState.Draw(gameTime);
             
             // Draw grid if in the build state
@@ -109,24 +128,53 @@ namespace InnKeeper.Shared
                 }
             }
             
+            //playStateUI.Draw(gameTime);
+            //playStateUI.DrawStrings(gameTime);
+            Controller.SBatch.End();
+        }
+
+        public override void DrawStrings(GameTime gameTime)
+        {
+            Controller.SBatch.Begin();
+
+            // Draw ui elements here as well
+            if (uiEntities.Count > 0 && Ready)
+            {
+                foreach (Entity entity in uiEntities)
+                {
+                    if (entity.IsVisible)
+                    {
+                        Controller.SBatch.Draw(entity.SpriteTexture, entity.Position, entity.SourceRect, entity.Tint);
+                    }
+
+
+                }
+            }
+
             playStateUI.Draw(gameTime);
             playStateUI.DrawStrings(gameTime);
+            Controller.SBatch.End();
+            //base.DrawStrings(gameTime);
         }
 
         public override void Update(GameTime gameTime)
         {
-
+            var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             // store current touch state
             Touches = TouchPanel.GetState();
-            
-            if(Touches.Count > 0 && Ready)
+
+
+            ProcessGestures(deltaTime);
+
+            if (Touches.Count > 0 && Ready)
             {
                 // Loop through entities and check whether or not they have been touched
                     for(int i = entities.Count -1; i >= 0; i--)
                     {
                         if (Touches[0].State == TouchLocationState.Released)
                         {
-                            if (entities[i].BoundingBox.Contains(Touches[0].Position))
+                        var worldPos = Controller.Camera.ScreenToWorld(Touches[0].Position);
+                        if (entities[i].BoundingBox.Contains(worldPos))
                             {
                                 // if the entity is visible and a callback exists, execute it
                                 if (entities[i].IsVisible && entities[i].Action != null)
@@ -136,7 +184,11 @@ namespace InnKeeper.Shared
                             }
                         }
                     }
+
+                    
             }// end Touches.Count > 0 && Ready
+
+            
 
             innUpdateTimeRemaining -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (innUpdateTimeRemaining <= 0)
@@ -174,6 +226,31 @@ namespace InnKeeper.Shared
         {
             innUpdateTimeRemaining = GameVariables.UpdateInnTimeInSeconds;
             currentInn.ProcessUpdate();
+        }
+
+        void ProcessGestures(float deltaTime)
+        {
+       
+
+            var gesture = default(GestureSample);
+            while (TouchPanel.IsGestureAvailable)
+            {
+                gesture = TouchPanel.ReadGesture();
+
+                if (gesture.GestureType == GestureType.Pinch)
+                {
+                    if(gesture.Delta.X > 0)
+                    {
+                        Controller.Camera.ZoomOut(GameVariables.CAMERA_ZOOM_SPEED * deltaTime);
+                    }
+                    else
+                    {
+                        Controller.Camera.ZoomIn(GameVariables.CAMERA_ZOOM_SPEED * deltaTime);
+                    }
+
+                    
+                }
+            }
         }
     }
 }

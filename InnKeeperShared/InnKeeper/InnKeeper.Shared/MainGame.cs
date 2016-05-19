@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 using MonoGame.Extended;
 using MonoGame.Extended.ViewportAdapters;
 
@@ -35,7 +36,7 @@ namespace InnKeeper.Shared
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            TouchPanel.EnabledGestures = GestureType.Pinch;
             var viewportAdapter = new BoxingViewportAdapter(Window, graphics.GraphicsDevice, GameVariables.VIEWPORT_WIDTH, GameVariables.VIEWPORT_HEIGHT);
             camera = new Camera2D(viewportAdapter);
 
@@ -124,16 +125,16 @@ namespace InnKeeper.Shared
         {
             GraphicsDevice.Clear(Color.Black);
 
-            var cameraTransformMatrix = controller.Camera.GetViewMatrix(Vector2.Zero);
-            spriteBatch.Begin(transformMatrix: cameraTransformMatrix);
+            //var cameraTransformMatrix = controller.Camera.GetViewMatrix(Vector2.Zero);
+            //spriteBatch.Begin(transformMatrix: cameraTransformMatrix);
             // TODO: Add your drawing code here
 
             // Draw top state from stack
-            
+           
             stateStack.Draw(gameTime);
-            stateStack.DrawStrings(gameTime);
+            //stateStack.DrawStrings(gameTime);
 
-            spriteBatch.End();
+            //spriteBatch.End();
             base.Draw(gameTime);
 
 
