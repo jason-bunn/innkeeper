@@ -18,7 +18,7 @@ namespace InnKeeper.Shared
         public const float DAY_CYCLE_LENGTH = 900.0f;
 
         // Camera speeds
-        public const float CAMERA_MOVE_SPEED = 200.0f;
+        public const float CAMERA_MOVE_SPEED = 100.0f;
         public const float CAMERA_ZOOM_SPEED = 0.5f;
 
         // World dimensions

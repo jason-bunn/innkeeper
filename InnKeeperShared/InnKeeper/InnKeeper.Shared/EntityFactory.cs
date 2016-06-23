@@ -7,9 +7,12 @@ namespace InnKeeper.Shared
     public class EntityFactory
     {
         TextureManager texMan;
-        public EntityFactory(TextureManager man)
+        GameController controller;
+
+        public EntityFactory(TextureManager man, GameController controller)
         {
             this.texMan = man;
+            this.controller = controller;
         }
 
         public Room CreateRoom(GameVariables.RoomTypes type)
@@ -42,22 +45,24 @@ namespace InnKeeper.Shared
         {
             UIcon temp = null;
 
+            Vector2 displayDimensions = controller.GetDeviceDimensions();
+
             switch(type)
             {
                 case GameVariables.IconTypes.BUILD:
-                    temp = new UIcon(texMan.GetTexture("Icons"), new Vector2(875, 475), Color.White, callBack);
+                    temp = new UIcon(texMan.GetTexture("Icons"), new Vector2(displayDimensions.X - 96, displayDimensions.Y - 48), Color.White, callBack);
                     temp.SetSourceRect(0, 0, 48, 48);
                     temp.SetBoundingBox(new Rectangle((int)temp.Position.X, (int)temp.Position.Y, 48, 48));
                     
                     break;
                 case GameVariables.IconTypes.BED:
-                    temp = new UIcon(texMan.GetTexture("Icons"), new Vector2(800, 475), Color.White, callBack);
+                    temp = new UIcon(texMan.GetTexture("Icons"), new Vector2(displayDimensions.X - 192, displayDimensions.Y - 48), Color.White, callBack);
                     temp.SetSourceRect(49, 0, 48, 48);
                     temp.SetBoundingBox(new Rectangle((int)temp.Position.X, (int)temp.Position.Y, 48, 48));
                     
                     break;
                 case GameVariables.IconTypes.MUG:
-                    temp = new UIcon(texMan.GetTexture("Icons"), new Vector2(875, 400), Color.White, callBack);
+                    temp = new UIcon(texMan.GetTexture("Icons"), new Vector2(displayDimensions.X - 96, displayDimensions.Y - 144), Color.White, callBack);
                     temp.SetSourceRect(97, 0, 48, 48);
                     temp.SetBoundingBox(new Rectangle((int)temp.Position.X, (int)temp.Position.Y, 48, 48));
                     

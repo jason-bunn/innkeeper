@@ -36,10 +36,11 @@ namespace InnKeeper.Shared
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            TouchPanel.EnabledGestures = GestureType.Pinch;
+            TouchPanel.EnabledGestures = GestureType.Pinch | GestureType.FreeDrag;
             var viewportAdapter = new BoxingViewportAdapter(Window, graphics.GraphicsDevice, GameVariables.VIEWPORT_WIDTH, GameVariables.VIEWPORT_HEIGHT);
             camera = new Camera2D(viewportAdapter);
-
+            camera.MaximumZoom = 2;
+            camera.MinimumZoom = 0.5f;
             controller.SetCamera(camera);
 
             graphics.IsFullScreen = true;
@@ -56,7 +57,7 @@ namespace InnKeeper.Shared
             controller.SetContentManager(this.Content);
             controller.SetScreenDimension(GameVariables.VIEWPORT_WIDTH, GameVariables.VIEWPORT_HEIGHT);
             controller.SetTextureManager(new TextureManager());
-            controller.SetEntityFactory(new EntityFactory(controller.TexManager));
+            controller.SetEntityFactory(new EntityFactory(controller.TexManager, controller));
 
             stateStack.RegisterState("Splash", new SplashScreenState(controller));
             stateStack.RegisterState("MainMenu", new MainMenuState(controller));

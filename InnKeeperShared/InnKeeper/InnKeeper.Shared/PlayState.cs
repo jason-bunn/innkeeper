@@ -86,7 +86,7 @@ namespace InnKeeper.Shared
 
         public override void Draw(GameTime gameTime)
         {
-
+            currentState.Draw(gameTime);
             //base.Draw(gameTime);
             var cameraTransformMatrix = Controller.Camera.GetViewMatrix(Vector2.Zero);
             Controller.SBatch.Begin(transformMatrix: cameraTransformMatrix);
@@ -104,7 +104,7 @@ namespace InnKeeper.Shared
                 }
             }
             
-            currentState.Draw(gameTime);
+            //currentState.Draw(gameTime);
             
             // Draw grid if in the build state
             if (currentState.StateID == GamePlayState.State.BUILD)
@@ -173,8 +173,8 @@ namespace InnKeeper.Shared
                     {
                         if (Touches[0].State == TouchLocationState.Released)
                         {
-                        var worldPos = Controller.Camera.ScreenToWorld(Touches[0].Position);
-                        if (entities[i].BoundingBox.Contains(worldPos))
+                            var worldPos = Controller.Camera.ScreenToWorld(Touches[0].Position);
+                            if (entities[i].BoundingBox.Contains(worldPos))
                             {
                                 // if the entity is visible and a callback exists, execute it
                                 if (entities[i].IsVisible && entities[i].Action != null)
@@ -184,8 +184,24 @@ namespace InnKeeper.Shared
                             }
                         }
                     }
+                    // loop through ui entities
+                    for (int i = uiEntities.Count - 1; i >= 0; i--)
+                    {
+                        if (Touches[0].State == TouchLocationState.Released)
+                        {
+                            //var worldPos = Controller.Camera.ScreenToWorld(Touches[0].Position);
+                            if (uiEntities[i].BoundingBox.Contains(Touches[0].Position))
+                            {
+                                // if the entity is visible and a callback exists, execute it
+                                if (uiEntities[i].IsVisible && uiEntities[i].Action != null)
+                                {
+                                    uiEntities[i].Action();
+                                }
+                            }
+                        }
+                    }
 
-                    
+
             }// end Touches.Count > 0 && Ready
 
             
@@ -239,16 +255,44 @@ namespace InnKeeper.Shared
 
                 if (gesture.GestureType == GestureType.Pinch)
                 {
-                    if(gesture.Delta.X > 0)
+                    Vector2 a = gesture.Position;
+                    Vector2 b = gesture.Position2;
+                    float dist = Vector2.Distance(a, b);
+
+                    Vector2 olda = gesture.Position - gesture.Delta;
+                    Vector2 oldb = gesture.Position2 - gesture.Delta2;
+                    float oldDist = Vector2.Distance(olda, oldb);
+
+                    if(oldDist > dist)
                     {
+                        
                         Controller.Camera.ZoomOut(GameVariables.CAMERA_ZOOM_SPEED * deltaTime);
                     }
                     else
                     {
+                        
                         Controller.Camera.ZoomIn(GameVariables.CAMERA_ZOOM_SPEED * deltaTime);
                     }
 
                     
+                }
+                //if the gesture is a drag, move camera
+                if(gesture.GestureType == GestureType.FreeDrag)
+                {
+                    
+                    Vector2 cameraPos = Controller.Camera.Position;
+                    Vector2 direction = gesture.Delta;
+
+                    Vector2 worldPos = Controller.Camera.ScreenToWorld(direction);
+                    //if (cameraPos.X >= 0 &&
+                    //    cameraPos.Y >= 0 &&
+                    //    cameraPos.X <= GameVariables.WORLD_WIDTH &&
+                    //    cameraPos.Y <= GameVariables.WORLD_HEIGHT)
+                    //{
+                    //    Controller.Camera.Move(-direction * (GameVariables.CAMERA_MOVE_SPEED * deltaTime));
+                    //}
+
+                    Controller.Camera.Move(-direction * (GameVariables.CAMERA_MOVE_SPEED * deltaTime));
                 }
             }
         }

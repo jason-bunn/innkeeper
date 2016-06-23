@@ -19,8 +19,13 @@ namespace InnKeeper.Shared
         public Camera2D Camera { get; private set; }
         public Vector2 WorldPosition { get; set; }
 
+        // preferred camera width and height
         public int ScreenWidth { get; private set; }
         public int ScreenHeight { get; private set; }
+
+        // width and height of the actual graphics device of the display
+        int displayWidth;
+        int displayHeight;
 
         Vector2 screenCenter;
 
@@ -62,6 +67,9 @@ namespace InnKeeper.Shared
         public void SetGraphicsDevice(GraphicsDeviceManager device)
         {
             this.GDevice = device;
+
+            displayWidth = device.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+            displayHeight = device.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
         }
 
         public void SetTextureManager(TextureManager manager)
@@ -85,6 +93,11 @@ namespace InnKeeper.Shared
         public void SetCamera(Camera2D camera)
         {
             this.Camera = camera;
+        }
+
+        public Vector2 GetDeviceDimensions()
+        {
+            return new Vector2(displayWidth, displayHeight);
         }
     }
 }

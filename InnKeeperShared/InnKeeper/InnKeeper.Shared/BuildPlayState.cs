@@ -12,6 +12,7 @@ namespace InnKeeper.Shared
         Entity currentEntity;
         BuildGrid grid;
         List<Entity> buildEntities;
+        List<Entity> uiEntities;
 
         public BuildPlayState(GameState parent) : base(parent)
         {
@@ -24,14 +25,15 @@ namespace InnKeeper.Shared
             if(!isLoaded)
             {
                 Entity temp;
+                uiEntities = new List<Entity>();
                 buildEntities = new List<Entity>();
                 temp = Parent.Controller.EntFactory.CreateIcon(GameVariables.IconTypes.BED, LodgingBuildSelect);
-                buildEntities.Add(temp);
-                Parent.AddEntity(temp);
+                uiEntities.Add(temp);
+                //Parent.AddEntity(temp);
 
                 temp = Parent.Controller.EntFactory.CreateIcon(GameVariables.IconTypes.MUG, FareBuildSelect);
-                buildEntities.Add(temp);
-                Parent.AddEntity(temp);
+                uiEntities.Add(temp);
+                //Parent.AddEntity(temp);
 
                 grid = new BuildGrid(GameVariables.GRID_SIZE, Parent.Controller.ScreenWidth, Parent.Controller.ScreenHeight);
 
@@ -54,6 +56,11 @@ namespace InnKeeper.Shared
             foreach (Entity ent in buildEntities)
             {
                 ent.IsVisible = false;
+            }
+            if (currentEntity != null)
+            {
+                Parent.RemoveEntity(currentEntity);
+                currentEntity = null;
             }
             base.ExitState();
         }
@@ -92,8 +99,10 @@ namespace InnKeeper.Shared
 
                 if (touches.Count > 0)
                 {
+                    var worldPos = Parent.Controller.Camera.ScreenToWorld(touches[0].Position);
+
                     // if touch is in current entity bounding box
-                    if (currentEntity.BoundingBox.Contains(touches[0].Position) &&
+                    if (currentEntity.BoundingBox.Contains(worldPos) &&
                         currentEntity.Tint != Color.White)
                     {
                         // if touch moved
@@ -105,8 +114,8 @@ namespace InnKeeper.Shared
                             //touches[0].Position.Y - currentEntity.BoundingBox.Height / 2));
 
                             currentEntity.SetPosition(grid.SnapToNearestNode(new Vector2(
-                                touches[0].Position.X - currentEntity.BoundingBox.Width / 2,
-                                touches[0].Position.Y - currentEntity.BoundingBox.Height / 2)));
+                                worldPos.X - currentEntity.BoundingBox.Width / 2,
+                                worldPos.Y - currentEntity.BoundingBox.Height / 2)));
                         }
                         // if touch released
                         if (touches[0].State == TouchLocationState.Released)
@@ -131,15 +140,52 @@ namespace InnKeeper.Shared
                 }
                 
             }
+            if (touches.Count > 0)
+            {
 
             
-           
+                // loop through ui entities
+                for (int i = uiEntities.Count - 1; i >= 0; i--)
+                {
+                    if (touches[0].State == TouchLocationState.Released)
+                    {
+                        //var worldPos = Controller.Camera.ScreenToWorld(Touches[0].Position);
+                        if (uiEntities[i].BoundingBox.Contains(touches[0].Position))
+                        {
+                            // if the entity is visible and a callback exists, execute it
+                            if (uiEntities[i].IsVisible && uiEntities[i].Action != null)
+                            {
+                                uiEntities[i].Action();
+                            }
+                        }
+                    }
+                }
+            }
+
 
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
+            Parent.Controller.SBatch.Begin();
+
+            // Draw ui elements here as well
+            if (uiEntities.Count > 0 )
+            {
+                foreach (Entity entity in uiEntities)
+                {
+                    if (entity.IsVisible)
+                    {
+                        Parent.Controller.SBatch.Draw(entity.SpriteTexture, entity.Position, entity.SourceRect, entity.Tint);
+                    }
+
+
+                }
+            }
+
+            
+            Parent.Controller.SBatch.End();
             base.Draw(gameTime);
 
             
